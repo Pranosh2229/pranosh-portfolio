@@ -1,3 +1,5 @@
+import ContactForm from "./ContactForm";
+
 const links = [
   { label: "LinkedIn", href: "https://linkedin.com/in/pranosh-m" },
   { label: "GitHub", href: "https://github.com/Pranosh2229" },
@@ -47,6 +49,8 @@ export default function Home() {
           </a>
         ))}
       </nav>
+
+      <ContactForm />
 
       <div className="mt-12 max-w-md border-t border-[var(--graphite)]/20 pt-8">
         <p className="text-sm text-[var(--graphite)]">
