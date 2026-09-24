@@ -1,8 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { PaperPlaneTilt } from "@phosphor-icons/react/dist/ssr";
 
 type Status = "idle" | "sending" | "sent" | "error";
+
+const fieldClass =
+  "min-h-11 rounded-xl border-2 border-[var(--foreground)]/15 bg-transparent px-4 text-sm text-[var(--foreground)] outline-none transition-colors placeholder:text-[var(--graphite)]/60 focus:border-[var(--accent)]";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -34,7 +38,7 @@ export default function ContactForm() {
 
   if (status === "sent") {
     return (
-      <p className="mt-12 max-w-md text-sm text-[var(--graphite)]">
+      <p className="max-w-md text-sm text-[var(--graphite)]">
         Thanks &mdash; your message reached me. I&apos;ll reply by email.
       </p>
     );
@@ -43,38 +47,45 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mt-12 flex w-full max-w-md flex-col gap-3 text-left"
+      className="flex w-full max-w-md flex-col gap-4 text-left"
     >
-      <p className="text-sm font-medium text-[var(--foreground)]">
+      <p
+        className="text-2xl font-bold tracking-tight"
+        style={{ fontFamily: "var(--font-heading)" }}
+      >
         Send me a message
       </p>
-      <input
-        name="name"
-        placeholder="Your name"
-        required
-        className="min-h-11 rounded-md border border-[var(--graphite)]/30 px-3 text-sm outline-none focus:border-[var(--accent)]"
-      />
-      <input
-        name="email"
-        type="email"
-        placeholder="Your email"
-        required
-        className="min-h-11 rounded-md border border-[var(--graphite)]/30 px-3 text-sm outline-none focus:border-[var(--accent)]"
-      />
-      <textarea
-        name="message"
-        placeholder="Message"
-        required
-        rows={4}
-        className="rounded-md border border-[var(--graphite)]/30 px-3 py-2 text-sm outline-none focus:border-[var(--accent)]"
-      />
+
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="name" className="text-xs font-medium text-[var(--graphite)]">
+          Your name
+        </label>
+        <input id="name" name="name" required className={fieldClass} />
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="email" className="text-xs font-medium text-[var(--graphite)]">
+          Your email
+        </label>
+        <input id="email" name="email" type="email" required className={fieldClass} />
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="message" className="text-xs font-medium text-[var(--graphite)]">
+          Message
+        </label>
+        <textarea id="message" name="message" required rows={4} className={fieldClass + " py-3"} />
+      </div>
+
       <button
         type="submit"
         disabled={status === "sending"}
-        className="flex min-h-11 items-center self-start rounded-full bg-[var(--foreground)] px-5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+        className="flex min-h-11 items-center justify-center gap-2 self-start rounded-full bg-[var(--accent)] px-6 text-sm font-semibold text-white transition-transform hover:opacity-90 active:scale-[0.97] disabled:opacity-50"
       >
         {status === "sending" ? "Sending..." : "Send"}
+        <PaperPlaneTilt size={16} weight="bold" />
       </button>
+
       {status === "error" && (
         <p className="text-sm text-[var(--accent)]">
           Something went wrong &mdash; try again, or email pranosh286@gmail.com directly.
