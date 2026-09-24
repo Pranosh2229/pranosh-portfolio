@@ -52,14 +52,14 @@ export default function ContactForm() {
         name="name"
         placeholder="Your name"
         required
-        className="rounded-md border border-[var(--graphite)]/30 px-3 py-2 text-sm outline-none focus:border-[var(--accent)]"
+        className="min-h-11 rounded-md border border-[var(--graphite)]/30 px-3 text-sm outline-none focus:border-[var(--accent)]"
       />
       <input
         name="email"
         type="email"
         placeholder="Your email"
         required
-        className="rounded-md border border-[var(--graphite)]/30 px-3 py-2 text-sm outline-none focus:border-[var(--accent)]"
+        className="min-h-11 rounded-md border border-[var(--graphite)]/30 px-3 text-sm outline-none focus:border-[var(--accent)]"
       />
       <textarea
         name="message"
@@ -71,7 +71,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="self-start rounded-full bg-[var(--foreground)] px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+        className="flex min-h-11 items-center self-start rounded-full bg-[var(--foreground)] px-5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
       >
         {status === "sending" ? "Sending..." : "Send"}
       </button>
