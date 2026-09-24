@@ -2,7 +2,10 @@ const links = [
   { label: "LinkedIn", href: "https://linkedin.com/in/pranosh-m" },
   { label: "GitHub", href: "https://github.com/Pranosh2229" },
   { label: "CV", href: "/Pranosh_M_Resume.pdf" },
-  { label: "Book a call", href: "mailto:pranosh286@gmail.com?subject=Let's talk" },
+  {
+    label: "Book a call",
+    href: "https://mail.google.com/mail/?view=cm&fs=1&to=pranosh286@gmail.com&su=Let%27s%20talk",
+  },
 ];
 
 export default function Home() {
