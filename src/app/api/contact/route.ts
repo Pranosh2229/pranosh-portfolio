@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export async function POST(request: NextRequest) {
   const body = await request.json();
   const { name, email, message } = body as {
@@ -9,9 +11,27 @@ export async function POST(request: NextRequest) {
     message?: string;
   };
 
-  if (!name || !email || !message) {
+  const trimmedName = name?.trim() ?? "";
+  const trimmedEmail = email?.trim() ?? "";
+  const trimmedMessage = message?.trim() ?? "";
+
+  if (!trimmedName || !trimmedEmail || !trimmedMessage) {
     return NextResponse.json(
       { error: "name, email and message are all required" },
+      { status: 400 }
+    );
+  }
+
+  if (!EMAIL_PATTERN.test(trimmedEmail)) {
+    return NextResponse.json(
+      { error: "email must be a valid email address" },
+      { status: 400 }
+    );
+  }
+
+  if (trimmedName.length > 200 || trimmedMessage.length > 5000) {
+    return NextResponse.json(
+      { error: "name or message is too long" },
       { status: 400 }
     );
   }
@@ -21,9 +41,9 @@ export async function POST(request: NextRequest) {
   const { error } = await resend.emails.send({
     from: "Portfolio contact form <onboarding@resend.dev>",
     to: process.env.CONTACT_TO_EMAIL!,
-    replyTo: email,
-    subject: `New portfolio message from ${name}`,
-    text: `From: ${name} <${email}>\n\n${message}`,
+    replyTo: trimmedEmail,
+    subject: `New portfolio message from ${trimmedName}`,
+    text: `From: ${trimmedName} <${trimmedEmail}>\n\n${trimmedMessage}`,
   });
 
   if (error) {
