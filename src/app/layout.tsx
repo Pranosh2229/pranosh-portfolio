@@ -22,7 +22,7 @@ const caveat = Caveat({
   weight: ["600"],
 });
 
-const siteUrl = "https://pranosh-portfolio.vercel.app";
+const siteUrl = "https://pranosh.is-a.dev";
 const description =
   "I build full-stack AI pipelines that survive a live demo, not just a notebook.";
 
